@@ -19,3 +19,23 @@ Implemented base layout in App.tsx
 - git checkout main
 - git merge feature/layout-and-style
 - git push origin main
+
+### Branch: feature/task-form
+
+Built TaskForm with these features:
+- Task title (required)
+- Optional description
+- Form validation with error messages
+- Disabled button unless valid
+- Auto-clear after submit
+- Styled inputs with icon and label (based on image)
+
+### Commands:
+- git checkout -b feature/task-form
+- git add .
+- git commit -m "Implement TaskForm with validation and styling"
+- git checkout main
+- git merge feature/task-form
+- git push origin main
+
+

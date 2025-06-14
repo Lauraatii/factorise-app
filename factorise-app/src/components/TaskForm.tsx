@@ -42,7 +42,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
       {/* Title Input */}
       <View style={styles.inputWrapper}>
         <Ionicons name="create-outline" size={20} color="black" style={styles.icon} />
-        <Text style={styles.label}>Title</Text>
         <TextInput
           placeholder="Task title"
           value={title}
@@ -54,7 +53,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
       {/* Description Input */}
       <View style={styles.inputWrapper}>
         <Ionicons name="document-text-outline" size={20} color="black" style={styles.icon} />
-        <Text style={styles.label}>Description</Text>
         <TextInput
           placeholder="Optional description"
           value={description}

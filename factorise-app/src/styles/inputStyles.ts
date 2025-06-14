@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.background.pure,
-    borderRadius: 12,
+    backgroundColor: '#F0F0F0', 
+    borderRadius: 999,          
     padding: spacing.sm,
     borderWidth: 1,
     borderColor: colors.border.light,

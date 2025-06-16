@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../styles/colors';
-import { spacing } from '../styles/spacing';
-import { typography } from '../styles/typography';
+import { useTasks } from '../context/TaskContext';
 import { styles } from '../styles/inputStyles';
+import { colors } from '../styles/colors';
 
 /**
- * Props for TaskForm component
+ * Task form component with validation and submission handling
+ * Uses context for state management instead of prop drilling
  */
-type TaskFormProps = {
-  onAddTask: (task: { title: string; description?: string }) => void;
-};
+export const TaskForm = () => {
+  const { dispatch } = useTasks();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [error, setError] = useState('');
 
-export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
-    // Form state management
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [error, setError] = useState('');
-
-    /**
-   * Form submission with validation
+  /**
+   * Handles form submission with validation
+   * - Validates title presence
+   * - Dispatches ADD_TASK action
+   * - Resets form on success
    */
   const handleSubmit = () => {
     if (!title.trim()) {
@@ -28,8 +27,12 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
       return;
     }
 
-    // Pass task to parent and reset form
-    onAddTask({ title, description });
+    dispatch({ 
+      type: 'ADD_TASK', 
+      payload: { title, description } 
+    });
+    
+    // Reset form
     setTitle('');
     setDescription('');
     setError('');
@@ -39,36 +42,55 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
 
   return (
     <View style={styles.container}>
-      {/* Title Input */}
+      {/* Title Input with icon */}
       <View style={styles.inputWrapper}>
-        <Ionicons name="create-outline" size={20} color="black" style={styles.icon} />
+        <Ionicons 
+          name="create-outline" 
+          size={20} 
+          color={colors.text.primary} 
+          style={styles.icon} 
+        />
         <TextInput
           placeholder="Task title"
+          placeholderTextColor={colors.text.disabled}
           value={title}
           onChangeText={setTitle}
           style={styles.input}
+          accessibilityLabel="Task title input"
         />
       </View>
 
-      {/* Description Input */}
+      {/* Description Input with icon */}
       <View style={styles.inputWrapper}>
-        <Ionicons name="document-text-outline" size={20} color="black" style={styles.icon} />
+        <Ionicons 
+          name="document-text-outline" 
+          size={20} 
+          color={colors.text.primary}
+          style={styles.icon} 
+        />
         <TextInput
           placeholder="Optional description"
+          placeholderTextColor={colors.text.disabled}
           value={description}
           onChangeText={setDescription}
           style={styles.input}
+          accessibilityLabel="Task description input"
         />
       </View>
 
-      {/* Error */}
-      {error && <Text style={styles.error}>{error}</Text>}
+      {/* Validation Error Message */}
+      {error && (
+        <Text style={styles.error} accessibilityRole="alert">
+          {error}
+        </Text>
+      )}
 
-      {/* Submit Button */}
+      {/* Submit Button with conditional styling */}
       <TouchableOpacity
         style={[styles.button, !isFormValid && styles.buttonDisabled]}
         onPress={handleSubmit}
         disabled={!isFormValid}
+        accessibilityRole="button"
       >
         <Text style={styles.buttonText}>Add Task</Text>
       </TouchableOpacity>

@@ -39,3 +39,15 @@ Built TaskForm with these features:
 - git push origin main
 
 
+## Branch: feature/task-sorting
+
+- Created a new branch `feature/task-sorting` from `main` to work on task sorting functionality.
+- Implemented sorting logic and UI components for sorting tasks by newest or oldest.
+- Styled the sort buttons and integrated them with the global task context.
+
+### Git commands:
+git checkout -b feature/task-sorting
+# made code changes...
+git add .
+git commit -m "Implement task sorting feature"
+git push origin feature/task-sorting
